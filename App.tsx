@@ -31,19 +31,19 @@ const App = () => {
       <Text></Text>
 
       <Button
-        buttonStyle={{ backgroundColor: 'grey' }}
+        buttonStyle={{ backgroundColor: 'lightgrey', borderColor: 'black', borderWidth: 0.5}}
         title="Notes"
         onPress={() => {
           setPage('notes')
         }}
       />
       <Button
-        buttonStyle={{ backgroundColor: 'grey' }}
+        buttonStyle={{ backgroundColor: 'lightgrey', borderColor: 'black', borderWidth: 0.5}}
         title="Add Note"
         onPress={() => setPage('addnote')}
       />
       <Button
-        buttonStyle={{ backgroundColor: 'green' }}
+        buttonStyle={{ backgroundColor: 'lightgrey', borderColor: 'black', borderWidth: 0.5}}
         title="Login"
         onPress={() => setPage('login')}
       />
