@@ -1,52 +1,13 @@
-import React, { Component } from 'react'
-import { StyleSheet, View } from 'react-native'
+import React, { Component, useState } from 'react'
+import { StyleSheet, KeyboardAvoidingView, AppRegistry } from 'react-native'
 import { Button, ThemeProvider, Header, Text } from 'react-native-elements'
 import Notes from './components/Notes'
+import AddNote from './components/AddNote'
+import Login from './components/Login'
+import { ApolloProvider, Query } from 'react-apollo'
+import ApolloClient, { InMemoryCache } from 'apollo-boost'
 import { createAppContainer } from 'react-navigation'
 import { createStackNavigator } from 'react-navigation-stack'
-import HomeScreen from './views/HomeScreen'
-import ProfileScreen from './views/ProfileScreen'
-import { ApolloProvider, Query } from 'react-apollo'
-import ApolloClient from 'apollo-boost'
-import gql from 'graphql-tag'
-
-/*
-const MainNavigator = createStackNavigator({
-  Home: { screen: HomeScreen },
-  Profile: { screen: ProfileScreen }
-})
-const App = createAppContainer(MainNavigator)
-export default App
-*/
-
-export default function App() {
-  return (
-    <ThemeProvider>
-      <Header
-        leftComponent={{ icon: 'menu', color: '#fff' }}
-        centerComponent={{ text: 'Muistijäljet', style: { color: '#fff' } }}
-        rightComponent={{ icon: 'home', color: '#fff' }}
-      />
-      <Notes />
-      <View style={styles.container}>
-        <Button
-          title='Show notes'
-          onPress={() => {
-            console.log('Show notes pressed')
-            window.alert('Show notes')
-          }}
-        />
-        <Button
-          title='Login'
-          onPress={() => {
-            console.log('Login pressed')
-            window.alert('Login')
-          }}
-        />
-      </View>
-    </ThemeProvider>
-  )
-}
 
 const styles = StyleSheet.create({
   container: {
@@ -54,12 +15,33 @@ const styles = StyleSheet.create({
     backgroundColor: '#ddd',
     alignItems: 'center',
     justifyContent: 'flex-start'
-  },
-  headerStyle: {
-    fontSize: 24,
-    marginBottom: 10
-  },
-  textStyle: {
-    fontSize: 16
   }
 })
+
+// TODO: Read this from a configuration
+const client = new ApolloClient({
+  uri: 'http://10.20.144.18:4000/graphql'
+})
+
+const App = () => {
+  const [page, setPage] = useState('notes')
+
+  return (
+    <ApolloProvider client={client}>
+      <Text></Text>
+
+      <Button
+        buttonStyle={{ backgroundColor: 'grey' }}
+        title='Notes'
+        onPress={() => setPage('notes')}
+      />
+      <Button title='Add Note' onPress={() => setPage('addnote')} />
+      <Button title='Login' onPress={() => setPage('login')} />
+
+      <Notes show={page === 'notes'} client={client} />
+      <AddNote show={page === 'addnote'} client={client} />
+      <Login show={page === 'login'} client={client} />
+    </ApolloProvider>
+  )
+}
+export default App
