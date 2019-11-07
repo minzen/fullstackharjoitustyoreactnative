@@ -8,6 +8,7 @@ import { ApolloProvider, Query } from 'react-apollo'
 import ApolloClient, { InMemoryCache } from 'apollo-boost'
 import { createAppContainer } from 'react-navigation'
 import { createStackNavigator } from 'react-navigation-stack'
+import { APOLLO_URI } from 'react-native-dotenv'
 
 const styles = StyleSheet.create({
   container: {
@@ -18,9 +19,8 @@ const styles = StyleSheet.create({
   }
 })
 
-// TODO: Read this from a configuration
 const client = new ApolloClient({
-  uri: 'http://10.20.144.18:4000/graphql'
+  uri: APOLLO_URI
 })
 
 const App = () => {
@@ -32,19 +32,19 @@ const App = () => {
 
       <Button
         buttonStyle={{ backgroundColor: 'grey' }}
-        title='Notes'
+        title="Notes"
         onPress={() => {
           setPage('notes')
         }}
       />
       <Button
         buttonStyle={{ backgroundColor: 'grey' }}
-        title='Add Note'
+        title="Add Note"
         onPress={() => setPage('addnote')}
       />
       <Button
         buttonStyle={{ backgroundColor: 'green' }}
-        title='Login'
+        title="Login"
         onPress={() => setPage('login')}
       />
 

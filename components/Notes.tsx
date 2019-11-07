@@ -4,6 +4,7 @@ import { Query, Mutation } from 'react-apollo'
 import { Text, SearchBar, Button, ListItem, Icon } from 'react-native-elements'
 import { schemaDefinitionNotAloneMessage } from 'graphql/validation/rules/LoneSchemaDefinition'
 import { ScrollView } from 'react-native'
+import Note from './Note'
 
 const ALL_NOTES = gql`
   query {
@@ -20,6 +21,7 @@ const ALL_NOTES = gql`
 const Notes = ({ show, client }) => {
   const [searchTerm, setSearchTerm] = useState('')
   const [notes, setNotes] = useState(null)
+  const [selectedNote, setSelectedNote] = useState(null)
   const maxLength: Number = 40
 
   if (!show) {
@@ -37,6 +39,7 @@ const Notes = ({ show, client }) => {
 
   const handleNotePress = id => {
     console.log('Press on a list item', id)
+    // setSelectedNote()
   }
 
   const handleNoteLongPress = id => {
@@ -63,7 +66,6 @@ const Notes = ({ show, client }) => {
 
   if (notes) {
     console.log('Notes to be printed out', notes)
-
     return (
       <>
         <SearchBar
@@ -87,6 +89,7 @@ const Notes = ({ show, client }) => {
             )
           })}
         </ScrollView>
+        <Note show={true} note={selectedNote} client={client} />
       </>
     )
   }
