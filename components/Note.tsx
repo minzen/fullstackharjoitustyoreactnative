@@ -1,15 +1,34 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
+import { View, StyleSheet } from 'react-native'
 import { Text } from 'react-native-elements'
 
-const Note = ({show, client, note}) => {
-    if (!show) {
-        return null
+const Note = ({ show, client, note }) => {
+  const styles = StyleSheet.create({
+    container: {
+      backgroundColor: '#ddd'
     }
+  })
 
+  if (!show) {
+    return null
+  }
+
+  if (note) {
+    const keywords = note.keywords.join()
     return (
-        <>
-        <Text h2>Note details</Text>
-        </>
+      <View style={styles.container}>
+        <Text h3 style={{ fontWeight: 'bold' }}>
+          {note.title}
+        </Text>
+        <Text>{note.content}</Text>
+        <Text>{keywords}</Text>
+      </View>
     )
+  }
+  return (
+    <>
+      <Text>Placeholder</Text>
+    </>
+  )
 }
 export default Note

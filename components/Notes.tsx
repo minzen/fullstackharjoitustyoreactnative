@@ -37,9 +37,9 @@ const Notes = ({ show, client }) => {
     console.log('Create a new note event')
   }
 
-  const handleNotePress = id => {
-    console.log('Press on a list item', id)
-    // setSelectedNote()
+  const handleNotePress = note => {
+    console.log('Press on a list item', note.id)
+    setSelectedNote(note)
   }
 
   const handleNoteLongPress = id => {
@@ -83,7 +83,7 @@ const Notes = ({ show, client }) => {
                 titleStyle={{ fontWeight: 'bold' }}
                 subtitle={note.content.substr(0, maxLength) + '...'}
                 bottomDivider
-                onPress={() => handleNotePress(note.id)}
+                onPress={() => handleNotePress(note)}
                 onLongPress={() => handleNoteLongPress(note.id)}
               />
             )
