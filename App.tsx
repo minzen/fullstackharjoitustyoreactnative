@@ -27,8 +27,8 @@ export default function App() {
         centerComponent={{ text: 'Muistijäljet', style: { color: '#fff' } }}
         rightComponent={{ icon: 'home', color: '#fff' }}
       />
+      <Notes />
       <View style={styles.container}>
-        <Notes />
         <Button
           title='Show notes'
           onPress={() => {
