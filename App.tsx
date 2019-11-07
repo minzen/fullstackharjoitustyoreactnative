@@ -33,10 +33,20 @@ const App = () => {
       <Button
         buttonStyle={{ backgroundColor: 'grey' }}
         title='Notes'
-        onPress={() => setPage('notes')}
+        onPress={() => {
+          setPage('notes')
+        }}
       />
-      <Button title='Add Note' onPress={() => setPage('addnote')} />
-      <Button title='Login' onPress={() => setPage('login')} />
+      <Button
+        buttonStyle={{ backgroundColor: 'grey' }}
+        title='Add Note'
+        onPress={() => setPage('addnote')}
+      />
+      <Button
+        buttonStyle={{ backgroundColor: 'green' }}
+        title='Login'
+        onPress={() => setPage('login')}
+      />
 
       <Notes show={page === 'notes'} client={client} />
       <AddNote show={page === 'addnote'} client={client} />

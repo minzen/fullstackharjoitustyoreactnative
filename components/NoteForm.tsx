@@ -6,10 +6,26 @@ const NoteForm = props => {
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
   const [keywords, setKeywords] = useState('')
+  // TODO: Add user
 
   const handleAddNote = async event => {
-    console.log('handleAddNote')
+    console.log(
+      'handleAddNote title:',
+      title,
+      ', content:',
+      content,
+      ', keywords:',
+      keywords
+    )
     event.preventDefault()
+
+    await props.addNote({
+      variables: { title, content, keywords }
+    })
+
+    setTitle('')
+    setContent('')
+    setKeywords('')
   }
 
   return (
@@ -35,7 +51,7 @@ const NoteForm = props => {
         value={keywords}
         onChangeText={keywords => setKeywords(keywords)}
       />
-      <Button title='Add note' />
+      <Button title='Add note' onPress={handleAddNote} />
     </>
   )
 }

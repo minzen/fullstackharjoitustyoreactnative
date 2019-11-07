@@ -13,7 +13,7 @@ const AddNote = ({ show, client }) => {
       $title: String!
       $content: String!
       $keywords: [String]
-      $user: String!
+      $user: Int
     ) {
       addNote(
         title: $title
