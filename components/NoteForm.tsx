@@ -1,5 +1,6 @@
 // Form for editing/creating a new note
 import React, { useState } from 'react'
+import { View } from 'react-native'
 import { Text, Input, Button } from 'react-native-elements'
 
 const NoteForm = props => {
@@ -29,7 +30,7 @@ const NoteForm = props => {
   }
 
   return (
-    <>
+    <View>
       <Text h2>Edit note</Text>
       <Input
         placeholder='Enter title...'
@@ -52,7 +53,7 @@ const NoteForm = props => {
         onChangeText={keywords => setKeywords(keywords)}
       />
       <Button title='Add note' onPress={handleAddNote} />
-    </>
+    </View>
   )
 }
 export default NoteForm

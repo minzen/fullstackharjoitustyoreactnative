@@ -1,5 +1,12 @@
 import React, { Component, useState } from 'react'
-import { StyleSheet, KeyboardAvoidingView, AppRegistry } from 'react-native'
+import {
+  StyleSheet,
+  KeyboardAvoidingView,
+  AppRegistry,
+  View,
+  StatusBar,
+  Platform
+} from 'react-native'
 import { Button, ThemeProvider, Header, Text } from 'react-native-elements'
 import Notes from './components/Notes'
 import AddNote from './components/AddNote'
@@ -13,9 +20,7 @@ import { APOLLO_URI } from 'react-native-dotenv'
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#ddd',
-    alignItems: 'center',
-    justifyContent: 'flex-start'
+    backgroundColor: '#ddd'
   }
 })
 
@@ -27,29 +32,40 @@ const App = () => {
   const [page, setPage] = useState('notes')
 
   return (
-    <ApolloProvider client={client}>
-      <Button
-        buttonStyle={{ borderColor: 'black', borderWidth: 0.5 }}
-        title='Notes'
-        onPress={() => {
-          setPage('notes')
+    <View style={styles.container}>
+      <View
+        //To set the background color in IOS Status Bar also
+        style={{
+          //backgroundColor: '#00BCD4',
+          height: Platform.OS === 'ios' ? 20 : StatusBar.currentHeight
         }}
-      />
-      <Button
-        buttonStyle={{ borderColor: 'black', borderWidth: 0.5 }}
-        title='Add Note'
-        onPress={() => setPage('addnote')}
-      />
-      <Button
-        buttonStyle={{ borderColor: 'black', borderWidth: 0.5 }}
-        title='Login'
-        onPress={() => setPage('login')}
-      />
+      >
+        <StatusBar hidden={false} barStyle='dark-content' />
+      </View>
+      <ApolloProvider client={client}>
+        <Button
+          buttonStyle={{ borderColor: 'black', borderWidth: 0.5 }}
+          title='Notes'
+          onPress={() => {
+            setPage('notes')
+          }}
+        />
+        <Button
+          buttonStyle={{ borderColor: 'black', borderWidth: 0.5 }}
+          title='Add Note'
+          onPress={() => setPage('addnote')}
+        />
+        <Button
+          buttonStyle={{ borderColor: 'black', borderWidth: 0.5 }}
+          title='Login'
+          onPress={() => setPage('login')}
+        />
 
-      <Notes show={page === 'notes'} client={client} />
-      <AddNote show={page === 'addnote'} client={client} />
-      <Login show={page === 'login'} client={client} />
-    </ApolloProvider>
+        <Notes show={page === 'notes'} client={client} />
+        <AddNote show={page === 'addnote'} client={client} />
+        <Login show={page === 'login'} client={client} />
+      </ApolloProvider>
+    </View>
   )
 }
 export default App
