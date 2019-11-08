@@ -1,7 +1,8 @@
 // Form for editing/creating a new note
 import React, { useState } from 'react'
-import { View } from 'react-native'
+import { View, StyleSheet } from 'react-native'
 import { Text, Input, Button } from 'react-native-elements'
+import { dimensions, colors, padding, fonts } from '../styles/base.js'
 
 const NoteForm = props => {
   const [title, setTitle] = useState('')
@@ -30,7 +31,7 @@ const NoteForm = props => {
   }
 
   return (
-    <View>
+    <View style={{ backgroundColor: 'white' }}>
       <Text h2>Edit note</Text>
       <Input
         placeholder='Enter title...'

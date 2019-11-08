@@ -5,7 +5,8 @@ import {
   AppRegistry,
   View,
   StatusBar,
-  Platform
+  Platform,
+  ImageBackground
 } from 'react-native'
 import { Button, ThemeProvider, Header, Text } from 'react-native-elements'
 import Notes from './components/Notes'
@@ -16,6 +17,7 @@ import ApolloClient, { InMemoryCache } from 'apollo-boost'
 import { createAppContainer } from 'react-navigation'
 import { createStackNavigator } from 'react-navigation-stack'
 import { APOLLO_URI } from 'react-native-dotenv'
+import { colors, fonts, padding, dimensions } from './styles/base.js'
 
 const styles = StyleSheet.create({
   container: {
@@ -61,9 +63,19 @@ const App = () => {
           onPress={() => setPage('login')}
         />
 
-        <Notes show={page === 'notes'} client={client} />
-        <AddNote show={page === 'addnote'} client={client} />
-        <Login show={page === 'login'} client={client} />
+        <ImageBackground
+          style={{
+            flex: 1,
+            alignSelf: 'stretch',
+            width: undefined,
+            height: undefined
+          }}
+          source={require('./assets/img/sofa_having_fresh_air.jpg')}
+        >
+          <Notes show={page === 'notes'} client={client} />
+          <AddNote show={page === 'addnote'} client={client} />
+          <Login show={page === 'login'} client={client} />
+        </ImageBackground>
       </ApolloProvider>
     </View>
   )

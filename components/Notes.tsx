@@ -73,8 +73,8 @@ const Notes = ({ show, client }) => {
           onChangeText={handleTextChange}
           value={searchTerm}
         />
-        <Text h2>Stored Notes</Text>
-        <ScrollView>
+        <ScrollView style={{ backgroundColor: 'white' }}>
+          <Text h2>Stored Notes</Text>
           {notes.map((note, index) => {
             return (
               <ListItem
