@@ -9,7 +9,9 @@ Tämä sovellus on rakennettu Full Stack Web Development -kurssille. Projekti on
 
 ## Frontend-toteutus
 
-React Native toteuttaa yksinkertaisen frontendin mobiililaitteille.
+React Native toteuttaa yksinkertaisen frontendin mobiililaitteille. Mobiilisovellus käyttää ApolloServer-toteutuksessa pyörivää API:a muistiinpanojen noutamiseen, tallentamiseen, muuttamiseen, sekä käyttäjien hallinnointiin ja autentikointiin.
+
+Toteutuksessa on käytetty apuna react-, react-native ja apolloserver ja -client -riippuvaisia kirjastoja. Käyttöliittymän ulkonäön parantamisessa on käytetty apuna normaaleja CSS-tyylejä sekä react-native-elements-komponentteja sekä EvilIcons-kokoelmaa.
 
 TODO: Lisää osoite, jossa frontend on käynnissä
 
