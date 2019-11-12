@@ -23,8 +23,8 @@ const LoginForm = props => {
       variables: { email, password }
     })
 
-    console.log('token obtained on login', token)
-    props.tokenChange(token)
+    console.log('token obtained on login', token.data.login.value)
+    props.tokenChange(token.data.login.value)
 
     setEmail('')
     setPassword('')

@@ -13,11 +13,15 @@ import Notes from './components/Notes'
 import AddNote from './components/AddNote'
 import Login from './components/Login'
 import { ApolloProvider, Query } from 'react-apollo'
-import ApolloClient, { InMemoryCache } from 'apollo-boost'
+import { ApolloClient } from 'apollo-client'
+import { InMemoryCache } from 'apollo-boost'
 import { createAppContainer } from 'react-navigation'
 import { createStackNavigator } from 'react-navigation-stack'
 import { APOLLO_URI } from 'react-native-dotenv'
 import { colors, fonts, padding, dimensions } from './styles/base.js'
+import { createHttpLink } from 'apollo-link-http'
+import { setContext } from 'apollo-link-context'
+import { AsyncStorage } from 'react-native'
 
 const styles = StyleSheet.create({
   container: {
@@ -26,19 +30,43 @@ const styles = StyleSheet.create({
   }
 })
 
-const client = new ApolloClient({
+const httpLink = createHttpLink({
   uri: APOLLO_URI
+})
+
+const authLink = setContext(async (_, { headers }) => {
+  // get the authentication token from the AsyncStorage if it exists
+  const token = await AsyncStorage.getItem('token')
+  console.log('authLink, token', token)
+  // return the headers to the context so httpLink can read them
+  return {
+    headers: {
+      ...headers,
+      authorization: token ? `Bearer ${token}` : ''
+    }
+  }
+})
+
+const client = new ApolloClient({
+  link: authLink.concat(httpLink),
+  cache: new InMemoryCache()
 })
 
 const App = () => {
   const [page, setPage] = useState('notes')
   const [token, setToken] = useState(null)
 
-  const onTokenChange = value => {
-    console.log('onTokenChange in App', value)
+  const onTokenChange = async value => {
+    console.log(
+      'onTokenChange in App, storing token',
+      value.toString(),
+      'to AsyncStorage'
+    )
+    await AsyncStorage.setItem('token', value)
     setToken(value)
   }
 
+  console.log('token value from AsyncStorage', token)
   // If not logged in, show only the login page
   if (!token) {
     return (
@@ -102,10 +130,10 @@ const App = () => {
             }}
             title='Logout'
             onPress={() => {
-              console.log('Logging out the user ')
-              setToken(null)
-              // localStorage.clear()
+              console.log('Logging out the user')
+              AsyncStorage.clear()
               client.resetStore()
+              setToken(null)
             }}
           />
 
