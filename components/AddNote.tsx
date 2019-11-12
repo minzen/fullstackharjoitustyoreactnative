@@ -13,19 +13,16 @@ const AddNote = ({ show, client }) => {
       $title: String!
       $content: String!
       $keywords: [String]
-      $user: User
     ) {
-      addNote(
-        title: $title
-        content: $content
-        keywords: $keywords
-        user: $user
-      ) {
+      addNote(title: $title, content: $content, keywords: $keywords) {
         title
         content
         id
         keywords
-        user
+        user {
+          id
+          email
+        }
       }
     }
   `

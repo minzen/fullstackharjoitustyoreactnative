@@ -8,7 +8,6 @@ const NoteForm = props => {
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
   const [keywords, setKeywords] = useState('')
-  // TODO: Add user
 
   const handleAddNote = async event => {
     console.log(
@@ -19,11 +18,14 @@ const NoteForm = props => {
       ', keywords:',
       keywords
     )
-    event.preventDefault()
-
-    await props.addNote({
-      variables: { title, content, keywords }
-    })
+    try {
+      const created = await props.addNote({
+        variables: { title, content, keywords }
+      })
+      console.log('created', created)
+    } catch (e) {
+      console.log('error when adding a note', e)
+    }
 
     setTitle('')
     setContent('')
@@ -47,12 +49,14 @@ const NoteForm = props => {
         value={content}
         onChangeText={content => setContent(content)}
       />
+
       <Input
         placeholder='Enter note keywords...'
         label='Keywords'
         value={keywords}
         onChangeText={keywords => setKeywords(keywords)}
       />
+
       <Button title='Add note' onPress={handleAddNote} />
     </View>
   )
