@@ -18,9 +18,13 @@ const LoginForm = props => {
       ', password (obfuscated):',
       passwordObfuscated
     )
-    await props.login({
+    console.log('logging in the user....')
+    const token = await props.login({
       variables: { email, password }
     })
+
+    console.log('token obtained on login', token)
+    props.tokenChange(token)
 
     setEmail('')
     setPassword('')

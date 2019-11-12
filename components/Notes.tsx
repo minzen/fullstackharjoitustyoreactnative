@@ -13,7 +13,10 @@ const ALL_NOTES = gql`
       title
       content
       keywords
-      user
+      user {
+        id
+        email
+      }
     }
   }
 `
