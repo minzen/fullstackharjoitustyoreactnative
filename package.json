@@ -5,7 +5,8 @@
     "ios": "react-native run-ios",
     "web": "expo start --web",
     "start": "react-native start",
-    "test": "jest"
+    "test": "jest",
+    "e2e": "detox test --configuration ios.sim"
   },
   "dependencies": {
     "@apollo/react-hooks": "^3.1.3",
@@ -13,9 +14,13 @@
     "apollo-client": "^2.6.4",
     "apollo-link-context": "^1.0.19",
     "apollo-link-ws": "^1.0.19",
+    "detox": "^14.7.1",
+    "detox-expo-helpers": "^0.6.0",
     "expo": "^35.0.0",
+    "expo-detox-hook": "^1.0.10",
     "graphql": "^14.5.8",
     "graphql-tag": "^2.10.1",
+    "jest": "^24.9.0",
     "react": "16.8.3",
     "react-apollo": "^3.1.3",
     "react-dom": "16.8.3",
@@ -41,6 +46,16 @@
   },
   "jest": {
     "preset": "react-native"
+  },
+  "detox": {
+    "configurations": {
+      "ios.sim": {
+        "binaryPath": "bin/Exponent.app",
+        "type": "ios.simulator",
+        "name": "iPhone X"
+      }
+    },
+    "test-runner": "jest"
   },
   "private": true
 }
