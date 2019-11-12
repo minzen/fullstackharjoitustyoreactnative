@@ -31,8 +31,8 @@ const LoginForm = props => {
   }
 
   return (
-    <View style={{ backgroundColor: 'white' }}>
-      <Text h2>Login</Text>
+    <View style={{ backgroundColor: 'lightgrey', padding: 10 }}>
+      <Text h2 style={{paddingBottom: 10}}>Login</Text>
       <Input
         label='Email'
         leftIcon={<Icon name='envelope' size={30} />}
@@ -50,7 +50,14 @@ const LoginForm = props => {
         secureTextEntry={true}
         clearButtonMode='always'
       />
-      <Button title='Login' onPress={handleLoginSubmit} />
+      <Button
+        title='Login'
+        onPress={handleLoginSubmit}
+        buttonStyle={{
+          backgroundColor: 'orange',
+          marginTop: 10
+        }}
+      />
     </View>
   )
 }
