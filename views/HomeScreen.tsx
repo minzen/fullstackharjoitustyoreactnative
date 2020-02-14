@@ -1,21 +1,16 @@
 import React, { Component } from 'react'
-import { Button } from 'react-native-elements'
+import { Layout, Text } from '@ui-kitten/components'
 
-class HomeScreen extends React.Component {
-  static navigationOptions = {
-    title: 'Welcome'
+const HomeScreen = ({ show, client }) => {
+  if (!show) {
+    return null
   }
-  render() {
-    // const { navigate } = this.props.navigation
-    return (
-      <Button
-        title="Go to Jane's profile"
-        onPress={() => {
-          console.log('go to profile')
-          /*navigate('Profile', { name: 'Jane' })*/
-        }}
-      />
-    )
-  }
+
+  return (
+    <Layout style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Text category='h1'>HOME</Text>
+    </Layout>
+  )
 }
+
 export default HomeScreen
