@@ -8,11 +8,10 @@ import {
   Platform,
   ImageBackground
 } from 'react-native'
-import { ThemeProvider, Header } from 'react-native-elements'
+import { Button, ThemeProvider, Header, Text } from 'react-native-elements'
 import Notes from './components/Notes'
 import AddNote from './components/AddNote'
-import LoginScreen from './views/LoginScreen'
-import HomeScreen from './views/HomeScreen'
+import Login from './components/Login'
 import { ApolloProvider, Query } from 'react-apollo'
 import { ApolloClient } from 'apollo-client'
 import { InMemoryCache } from 'apollo-boost'
@@ -23,21 +22,11 @@ import { colors, fonts, padding, dimensions } from './styles/base.js'
 import { createHttpLink } from 'apollo-link-http'
 import { setContext } from 'apollo-link-context'
 import { AsyncStorage } from 'react-native'
-import {
-  ApplicationProvider,
-  Layout,
-  Text,
-  Button
-} from '@ui-kitten/components'
-import { mapping, dark as darkTheme } from '@eva-design/eva'
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#ccc'
-  },
-  button: {
-    margin: 1
   }
 })
 
@@ -85,105 +74,92 @@ const App = () => {
   // If not logged in, show only the login page
   if (!token) {
     return (
-      <ApplicationProvider mapping={mapping} theme={darkTheme}>
-        <View style={styles.container}>
-          <View
-            // TODO: Landscape modus does not work with the status bar at the moment
-            //To set the background color in IOS Status Bar also
-            style={{
-              //backgroundColor: '#00BCD4',
-              height: Platform.OS === 'ios' ? 20 : StatusBar.currentHeight
-            }}
-          >
-            <StatusBar hidden={false} barStyle='dark-content' />
-          </View>
-          <ApolloProvider client={client}>
-            <ImageBackground
-              style={{
-                flex: 1,
-                alignSelf: 'stretch',
-                width: undefined,
-                height: undefined
-              }}
-              source={require('./assets/img/sofa_having_fresh_air.jpg')}
-            >
-              <LoginScreen
-                show={true}
-                client={client}
-                tokenChange={onTokenChange}
-              />
-            </ImageBackground>
-          </ApolloProvider>
+      <View style={styles.container}>
+        <View
+          // TODO: Landscape modus does not work with the status bar at the moment
+          //To set the background color in IOS Status Bar also
+          style={{
+            //backgroundColor: '#00BCD4',
+            height: Platform.OS === 'ios' ? 20 : StatusBar.currentHeight
+          }}
+        >
+          <StatusBar hidden={false} barStyle='dark-content' />
         </View>
-      </ApplicationProvider>
+        <ApolloProvider client={client}>
+          <ImageBackground
+            style={{
+              flex: 1,
+              alignSelf: 'stretch',
+              width: undefined,
+              height: undefined
+            }}
+            source={require('./assets/img/sofa_having_fresh_air.jpg')}
+          >
+            <Login show={true} client={client} tokenChange={onTokenChange} />
+          </ImageBackground>
+        </ApolloProvider>
+      </View>
     )
   } else {
     return (
-      <ApplicationProvider mapping={mapping} theme={darkTheme}>
-        <View style={styles.container}>
-          <View
-            // TODO: Landscape modus does not work with the status bar at the moment
-            //To set the background color in IOS Status Bar also
-            style={{
-              //backgroundColor: '#00BCD4',
-              height: Platform.OS === 'ios' ? 20 : StatusBar.currentHeight
-            }}
-          >
-            <StatusBar hidden={false} barStyle='dark-content' />
-          </View>
-          <ApolloProvider client={client}>
-            <Button
-              style={styles.button}
-              onPress={() => {
-                setPage('home')
-              }}
-            >
-              Home
-            </Button>
-            <Button
-              style={styles.button}
-              onPress={() => {
-                setPage('notes')
-              }}
-            >
-              Notes
-            </Button>
-            <Button style={styles.button} onPress={() => setPage('addnote')}>
-              Add note
-            </Button>
-            <Button
-              style={styles.button}
-              status='danger'
-              onPress={() => {
-                AsyncStorage.clear()
-                client.resetStore()
-                setToken(null)
-              }}
-            >
-              Logout
-            </Button>
-
-            <ImageBackground
-              style={{
-                flex: 1,
-                alignSelf: 'stretch',
-                width: undefined,
-                height: undefined
-              }}
-              source={require('./assets/img/sofa_having_fresh_air.jpg')}
-            >
-              <HomeScreen show={page === 'home'} client={client} />
-              <Notes show={page === 'notes'} client={client} />
-              <AddNote show={page === 'addnote'} client={client} />
-              <LoginScreen
-                show={page === 'login'}
-                client={client}
-                tokenChange={onTokenChange}
-              />
-            </ImageBackground>
-          </ApolloProvider>
+      <View style={styles.container}>
+        <View
+          // TODO: Landscape modus does not work with the status bar at the moment
+          //To set the background color in IOS Status Bar also
+          style={{
+            //backgroundColor: '#00BCD4',
+            height: Platform.OS === 'ios' ? 20 : StatusBar.currentHeight
+          }}
+        >
+          <StatusBar hidden={false} barStyle='dark-content' />
         </View>
-      </ApplicationProvider>
+        <ApolloProvider client={client}>
+          <Button
+            buttonStyle={{ borderColor: 'black', borderWidth: 0.5 }}
+            title='Notes'
+            onPress={() => {
+              setPage('notes')
+            }}
+          />
+          <Button
+            buttonStyle={{ borderColor: 'black', borderWidth: 0.5 }}
+            title='Add Note'
+            onPress={() => setPage('addnote')}
+          />
+          <Button
+            buttonStyle={{
+              backgroundColor: 'red',
+              borderColor: 'black',
+              borderWidth: 0.5
+            }}
+            title='Logout'
+            onPress={() => {
+              console.log('Logging out the user')
+              AsyncStorage.clear()
+              client.resetStore()
+              setToken(null)
+            }}
+          />
+
+          <ImageBackground
+            style={{
+              flex: 1,
+              alignSelf: 'stretch',
+              width: undefined,
+              height: undefined
+            }}
+            source={require('./assets/img/sofa_having_fresh_air.jpg')}
+          >
+            <Notes show={page === 'notes'} client={client} />
+            <AddNote show={page === 'addnote'} client={client} />
+            <Login
+              show={page === 'login'}
+              client={client}
+              tokenChange={onTokenChange}
+            />
+          </ImageBackground>
+        </ApolloProvider>
+      </View>
     )
   }
 }

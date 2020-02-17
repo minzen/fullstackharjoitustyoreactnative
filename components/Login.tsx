@@ -1,9 +1,9 @@
 import React from 'react'
 import { gql } from 'apollo-boost'
 import { Mutation } from 'react-apollo'
-import LoginForm from '../components/LoginForm'
+import LoginForm from './LoginForm'
 
-const LoginScreen = ({ show, client, tokenChange }) => {
+const Login = ({ show, client, tokenChange }) => {
   if (!show) {
     return null
   }
@@ -22,4 +22,4 @@ const LoginScreen = ({ show, client, tokenChange }) => {
     </Mutation>
   )
 }
-export default LoginScreen
+export default Login
