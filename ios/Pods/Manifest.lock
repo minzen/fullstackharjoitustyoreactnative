@@ -87,7 +87,7 @@ PODS:
     - React/Core
     - React/fishhook
     - React/RCTBlob
-  - RNGestureHandler (1.3.0):
+  - RNGestureHandler (1.5.0):
     - React
   - RNReanimated (1.2.0):
     - React
@@ -259,7 +259,7 @@ SPEC CHECKSUMS:
   Folly: de497beb10f102453a1afa9edbf8cf8a251890de
   glog: aefd1eb5dda2ab95ba0938556f34b98e2da3a60d
   React: 36d0768f9e93be2473b37e7fa64f92c1d5341eef
-  RNGestureHandler: 5329a942fce3d41c68b84c2c2276ce06a696d8b0
+  RNGestureHandler: a4ddde1ffc6e590c8127b8b7eabfdade45475c74
   RNReanimated: 1b52415c4302f198cb581282a0166690bad62c43
   RNScreens: bfa9143ca291bcf3804c932f77b9617ff324704f
   UMBarCodeScannerInterface: d5a6fdc98ed6241225b0a8432a7f4e2b397668bc
@@ -276,6 +276,6 @@ SPEC CHECKSUMS:
   UMTaskManagerInterface: 1e70fe58b872355f0ecb44fb81bb1a16484047f0
   yoga: 684513b14b03201579ba3cee20218c9d1298b0cc
 
-PODFILE CHECKSUM: d92ed41a3c2c9b7879830288cb18d2d92036761f
+PODFILE CHECKSUM: 1b74ca84e171fb541ffea776bf407fa6c8e19d0d
 
 COCOAPODS: 1.8.4

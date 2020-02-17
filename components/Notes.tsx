@@ -1,10 +1,11 @@
-import React, { Component, useState } from 'react'
+import React, { Component, useState, useEffect } from 'react'
 import { gql } from 'apollo-boost'
 import { Query, Mutation } from 'react-apollo'
 import { Text, SearchBar, Button, ListItem, Icon } from 'react-native-elements'
 import { schemaDefinitionNotAloneMessage } from 'graphql/validation/rules/LoneSchemaDefinition'
 import { ScrollView } from 'react-native'
 import Note from './Note'
+import { Subscription } from 'rxjs'
 
 const ALL_NOTES = gql`
   query {
@@ -31,6 +32,16 @@ const Notes = ({ show, client }) => {
     return null
   }
 
+  console.log('Obtaining notes...')
+  const querySubscription: Subscription = client
+    .watchQuery({
+      query: ALL_NOTES,
+      fetchPolicy: 'cache-and-network'
+    })
+    .subscribe(({ data, loading }) => {
+      if (data && data.allNotes) setNotes(data.allNotes)
+    })
+
   const handleTextChange = search => {
     console.log(`Setting ${search} to the search term`)
     setSearchTerm(search)
@@ -48,16 +59,6 @@ const Notes = ({ show, client }) => {
   const handleNoteLongPress = id => {
     console.log('Long Press on a list item', id)
   }
-
-  const getNotes = async () => {
-    console.log('Obtaining notes...')
-    const { data } = await client.query({
-      query: ALL_NOTES
-    })
-    console.log('response of allNotes', data.allNotes)
-    await setNotes(data.allNotes)
-  }
-  getNotes()
 
   function extractKeywordsFromArrayWithJoin(keywords) {
     console.log('keywords :', keywords)

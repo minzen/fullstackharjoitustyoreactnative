@@ -1,25 +1,40 @@
-import React from 'react'
-import { gql } from 'apollo-boost'
-import { Mutation } from 'react-apollo'
+import React, { useEffect } from 'react'
+import gql from 'graphql-tag'
+import { useApolloClient, useMutation } from '@apollo/react-hooks'
 import LoginForm from './LoginForm'
+import ApolloClient from 'apollo-client'
+import Loading from './Loading'
+import { AsyncStorage } from 'react-native'
+
+const LOGIN_USER = gql`
+  mutation login($email: String!, $password: String!) {
+    login(email: $email, password: $password) {
+      value
+    }
+  }
+`
 
 const Login = ({ show, client, tokenChange }) => {
   if (!show) {
     return null
   }
 
-  const LOGIN_USER = gql`
-    mutation loginUser($email: String!, $password: String!) {
-      login(email: $email, password: $password) {
-        value
-      }
-    }
-  `
+  useEffect(() => {
+    console.log('useEffect')
+    login
+  }, [])
 
-  return (
-    <Mutation mutation={LOGIN_USER}>
-      {loginUser => <LoginForm login={loginUser} tokenChange={tokenChange} />}
-    </Mutation>
-  )
+  const [login, { loading, error }] = useMutation(LOGIN_USER, {
+    onCompleted({ login }) {
+      console.log('Login onCompleted()', login)
+      tokenChange(login)
+    }
+  })
+
+  if (loading) return <Loading />
+  if (error) return <div>Error</div>
+
+  return <LoginForm login={login} client={client} />
 }
+
 export default Login
