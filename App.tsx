@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect } from 'react'
+import React, { Component, useState } from 'react'
 import {
   StyleSheet,
   KeyboardAvoidingView,
@@ -56,10 +56,6 @@ const App = () => {
   const [page, setPage] = useState('notes')
   const [token, setToken] = useState(null)
 
-  useEffect(() => {
-    setToken(AsyncStorage.getItem('token'))
-  }, [])
-
   const onTokenChange = async value => {
     console.log(
       'onTokenChange in App, storing token',
@@ -67,7 +63,7 @@ const App = () => {
       'to AsyncStorage'
     )
     await AsyncStorage.setItem('token', value)
-    // setToken(value)
+    setToken(value)
   }
 
   console.log('token value from AsyncStorage', token)
