@@ -4,16 +4,14 @@ import { Image, Tile } from 'react-native-elements'
 
 const Header = () => {
   return (
-    <View>
-      <Tile
-        imageSrc={require('../assets/img/postit.png')}
-        title='Memory Tracks'
-        featured
-        titleStyle={{ color: 'black' }}
-        containerStyle={{ height: 160 }}
-        imageContainerStyle={{ opacity: 0.5 }}
-      />
-    </View>
+    <Tile
+      imageSrc={require('../assets/img/postit.png')}
+      title='Memory Tracks'
+      featured
+      titleStyle={{ color: 'black' }}
+      containerStyle={{ height: 160, marginBottom: 120 }}
+      imageContainerStyle={{ opacity: 0.5 }}
+    />
   )
 }
 export default Header
