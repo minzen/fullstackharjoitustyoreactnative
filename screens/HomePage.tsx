@@ -7,7 +7,6 @@ const HomePage = ({ navigation }) => {
   return (
     <View>
       <Header />
-      <Button title='View notes' onPress={() => navigation.navigate('Notes')} />
     </View>
   )
 }

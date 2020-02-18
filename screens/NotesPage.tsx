@@ -1,17 +1,11 @@
 import React, { Component, useState, useEffect } from 'react'
 import { gql } from 'apollo-boost'
 import { Query, Mutation } from 'react-apollo'
-import {
-  Text,
-  SearchBar,
-  Button,
-  ListItem,
-  Icon,
-  Card
-} from 'react-native-elements'
+import { Text, SearchBar, Button, ListItem, Card } from 'react-native-elements'
 import { ScrollView } from 'react-native'
 import Note from '../components/Note'
 import { Subscription } from 'rxjs'
+import Icon from 'react-native-vector-icons/FontAwesome'
 
 const ALL_NOTES = gql`
   query {
@@ -77,11 +71,11 @@ const NotesPage = ({ navigation, client }) => {
     console.log('Notes to be printed out', notes)
     return (
       <>
-        <SearchBar
+        {/* <SearchBar
           placeholder='Search for notes...'
           onChangeText={handleTextChange}
           value={searchTerm}
-        />
+        /> */}
         <ScrollView style={{ backgroundColor: 'white' }}>
           <Card title='Stored notes'>
             {notes.map((note, index) => {
@@ -106,7 +100,8 @@ const NotesPage = ({ navigation, client }) => {
         />
 
         <Button
-          title='Add a new note'
+          icon={<Icon name='plus' size={15} color='white' />}
+          title=' Add a new note'
           onPress={() => navigation.navigate('EditNote')}
         />
       </>
@@ -114,10 +109,11 @@ const NotesPage = ({ navigation, client }) => {
   }
 
   return (
-    <>
-      <Text>Stored Notes</Text>
-      <Text>No stored notes found.</Text>
-    </>
+    <ScrollView style={{ backgroundColor: 'white' }}>
+      <Card title='Stored notes'>
+        <Text>No stored notes found.</Text>
+      </Card>
+    </ScrollView>
   )
 }
 export default NotesPage

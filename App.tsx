@@ -26,6 +26,7 @@ import NoteForm from './components/NoteForm'
 import NotesPage from './screens/NotesPage'
 import EditNotePage from './screens/EditNotePage'
 import HomePage from './screens/HomePage'
+import TabNavigation from './components/TabNavigation'
 
 const Stack = createStackNavigator()
 
@@ -110,74 +111,8 @@ const App = () => {
         >
           <StatusBar hidden={false} barStyle='dark-content' />
         </View>
-        <Stack.Navigator>
-          <Stack.Screen name='Home' component={HomePage} />
-          <Stack.Screen name='Notes'>
-            {props => <NotesPage {...props} client={client} />}
-          </Stack.Screen>
-          <Stack.Screen
-            name='EditNote'
-            component={EditNotePage}
-            options={{ title: 'Edit note' }}
-          />
-          <Stack.Screen name='Profile' component={Profile} />
-        </Stack.Navigator>
+        <TabNavigation client={client} setToken={setToken} />
       </ApolloProvider>
-      {/*      
-      <View style={styles.container}>
-        <Header />
-        <View
-          // TODO: Landscape modus does not work with the status bar at the moment
-          //To set the background color in IOS Status Bar also
-          style={{
-            //backgroundColor: '#00BCD4',
-            height: Platform.OS === 'ios' ? 20 : StatusBar.currentHeight
-          }}
-        >
-          <StatusBar hidden={false} barStyle='dark-content' />
-        </View>
-        <ApolloProvider client={client}>
-          <Button
-            buttonStyle={{ borderColor: 'black', borderWidth: 0.5 }}
-            title='Notes'
-            onPress={() => {
-              setPage('notes')
-            }}
-          />
-          <Button
-            buttonStyle={{ borderColor: 'black', borderWidth: 0.5 }}
-            title='Add Note'
-            onPress={() => setPage('addnote')}
-          />
-          <Button
-            buttonStyle={{ borderColor: 'black', borderWidth: 0.5 }}
-            title='Profile'
-            onPress={() => setPage('profile')}
-          />
-          <Button
-            buttonStyle={{
-              backgroundColor: 'red',
-              borderColor: 'black',
-              borderWidth: 0.5
-            }}
-            title='Logout'
-            onPress={() => {
-              console.log('Logging out the user')
-              client.resetStore()
-              setToken(null)
-            }}
-          />
-          <Notes show={page === 'notes'} client={client} />
-          <AddNote show={page === 'addnote'} client={client} />
-          <Profile show={page === 'profile'} token={token} />
-          <Login
-            show={page === 'login'}
-            client={client}
-            tokenChange={onTokenChange}
-          />
-        </ApolloProvider>
-      </View>
-      */}
     </NavigationContainer>
   )
 }
