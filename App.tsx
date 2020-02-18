@@ -19,6 +19,7 @@ import { colors, fonts, padding, dimensions } from './styles/base.js'
 import { createHttpLink } from 'apollo-link-http'
 import { setContext } from 'apollo-link-context'
 import { AsyncStorage } from 'react-native'
+import Profile from './components/Profile'
 
 const styles = StyleSheet.create({
   container: {
@@ -27,8 +28,10 @@ const styles = StyleSheet.create({
   }
 })
 
+console.log(APOLLO_URI)
+
 const httpLink = createHttpLink({
-  uri: `${APOLLO_URI}`
+  uri: APOLLO_URI
 })
 
 const authLink = setContext(async (_, { headers }) => {
@@ -108,6 +111,11 @@ const App = () => {
           title='Add Note'
           onPress={() => setPage('addnote')}
         />
+        <Button 
+          buttonStyle={{ borderColor: 'black', borderWidth: 0.5}}
+          title='Profile'
+          onPress={() => setPage('profile') }
+        />
         <Button
           buttonStyle={{
             backgroundColor: 'red',
@@ -123,6 +131,7 @@ const App = () => {
         />
         <Notes show={page === 'notes'} client={client} />
         <AddNote show={page === 'addnote'} client={client} />
+        <Profile show={page === 'profile'} client={client} token={token} />
         <Login
           show={page === 'login'}
           client={client}

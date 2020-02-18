@@ -1,34 +1,61 @@
 import React, { useState } from 'react'
-import { View, StyleSheet } from 'react-native'
-import { Text } from 'react-native-elements'
+import { StyleSheet, Modal, View, TouchableHighlight, ScrollView } from 'react-native'
+import { Card, Text, Overlay } from 'react-native-elements'
 
-const Note = ({ show, client, note }) => {
-  const styles = StyleSheet.create({
-    container: {
-      backgroundColor: '#ddd'
-    }
-  })
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: '#4682B4',
+    flex: 1
+  },
+  cardTitle: {
+    color: 'black',
+    fontWeight: 'bold',
+    fontSize: 24
+  },
+  cardHeader: {
+    fontSize: 18,
+    fontWeight: 'bold'
+  },
+  cardText: {
+    fontSize: 18,
+    marginBottom: 5
+  }
+})
 
-  if (!show) {
+const Note = (props) => {
+
+  if (!props.note) {
     return null
   }
 
-  if (note) {
-    const keywords = note.keywords.join()
-    return (
-      <View style={styles.container}>
-        <Text h3 style={{ fontWeight: 'bold' }}>
-          {note.title}
-        </Text>
-        <Text>{note.content}</Text>
-        <Text>{keywords}</Text>
-      </View>
-    )
-  }
   return (
-    <>
-      <Text>Placeholder</Text>
-    </>
+    <Overlay
+      isVisible={props.overlayVisible}
+      windowBackgroundColor='rgba(34,34,34,1)'
+      overlayBackgroundColor='rgba(34,34,34,1)'
+      height='90%'
+      width='90%'
+      onBackdropPress={() => props.setOverlayVisible(!props.overlayVisible)}
+    >
+        <Card title='Note' containerStyle={styles.container} titleStyle={styles.cardTitle}>
+          <ScrollView>
+            <Text style={styles.cardHeader}>
+              Title: 
+            </Text>
+            <Text style={styles.cardText}>
+              {props.note.title}
+            </Text>
+            <Text style={styles.cardHeader}>
+              Content: 
+            </Text>
+            <Text style={styles.cardText}>{props.note.content}</Text>
+            <Text style={styles.cardHeader}>
+              Keywords: 
+            </Text>
+            <Text style={styles.cardText}>{props.note.keywords}</Text>
+          </ScrollView>
+        </Card>
+    </Overlay>
   )
 }
 export default Note

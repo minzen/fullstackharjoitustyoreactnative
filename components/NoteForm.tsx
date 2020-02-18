@@ -1,7 +1,7 @@
 // Form for editing/creating a new note
 import React, { useState } from 'react'
-import { View, StyleSheet } from 'react-native'
-import { Text, Input, Button } from 'react-native-elements'
+import { StyleSheet } from 'react-native'
+import { Text, Input, Button, Card, Avatar } from 'react-native-elements'
 import { dimensions, colors, padding, fonts } from '../styles/base.js'
 
 const NoteForm = props => {
@@ -33,8 +33,7 @@ const NoteForm = props => {
   }
 
   return (
-    <View style={{ backgroundColor: 'white' }}>
-      <Text h2>Edit note</Text>
+      <Card title='Edit note'>
       <Input
         placeholder='Enter title...'
         // leftIcon={{ type: 'font-awesome', name: 'chevron-left' }}
@@ -58,7 +57,8 @@ const NoteForm = props => {
       />
 
       <Button title='Add note' onPress={handleAddNote} />
-    </View>
+
+      </Card>
   )
 }
 export default NoteForm

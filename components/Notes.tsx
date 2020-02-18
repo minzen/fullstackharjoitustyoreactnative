@@ -1,8 +1,7 @@
 import React, { Component, useState, useEffect } from 'react'
 import { gql } from 'apollo-boost'
 import { Query, Mutation } from 'react-apollo'
-import { Text, SearchBar, Button, ListItem, Icon } from 'react-native-elements'
-import { schemaDefinitionNotAloneMessage } from 'graphql/validation/rules/LoneSchemaDefinition'
+import { Text, SearchBar, Button, ListItem, Icon, Card } from 'react-native-elements'
 import { ScrollView } from 'react-native'
 import Note from './Note'
 import { Subscription } from 'rxjs'
@@ -26,6 +25,8 @@ const Notes = ({ show, client }) => {
   const [searchTerm, setSearchTerm] = useState('')
   const [notes, setNotes] = useState(null)
   const [selectedNote, setSelectedNote] = useState(null)
+  const [overlayVisible, setOverlayVisible] = useState(false)
+
   const maxLength: Number = 40
 
   if (!show) {
@@ -54,6 +55,7 @@ const Notes = ({ show, client }) => {
   const handleNotePress = note => {
     console.log('Press on a list item', note.id)
     setSelectedNote(note)
+    setOverlayVisible(true)
   }
 
   const handleNoteLongPress = id => {
@@ -72,13 +74,13 @@ const Notes = ({ show, client }) => {
     console.log('Notes to be printed out', notes)
     return (
       <>
-        <SearchBar
+        {/* <SearchBar
           placeholder='Search for notes...'
           onChangeText={handleTextChange}
           value={searchTerm}
-        />
+        /> */}
         <ScrollView style={{ backgroundColor: 'white' }}>
-          <Text h2>Stored Notes</Text>
+          <Card title='Stored notes'>
           {notes.map((note, index) => {
             return (
               <ListItem
@@ -92,20 +94,17 @@ const Notes = ({ show, client }) => {
               />
             )
           })}
+
+          </Card>
         </ScrollView>
-        <Note show={true} note={selectedNote} client={client} />
+        <Note note={selectedNote} overlayVisible={overlayVisible} setOverlayVisible={setOverlayVisible} />
       </>
     )
   }
 
   return (
     <>
-      <SearchBar
-        placeholder='Search for notes...'
-        onChangeText={handleTextChange}
-        value={searchTerm}
-      />
-      <Text h2>Stored Notes</Text>
+      <Text>Stored Notes</Text>
       <Text>No stored notes found.</Text>
     </>
   )
