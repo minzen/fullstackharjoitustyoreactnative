@@ -1,7 +1,14 @@
 import React, { Component, useState, useEffect } from 'react'
 import { gql } from 'apollo-boost'
 import { Query, Mutation } from 'react-apollo'
-import { Text, SearchBar, Button, ListItem, Icon, Card } from 'react-native-elements'
+import {
+  Text,
+  SearchBar,
+  Button,
+  ListItem,
+  Icon,
+  Card
+} from 'react-native-elements'
 import { ScrollView } from 'react-native'
 import Note from './Note'
 import { Subscription } from 'rxjs'
@@ -81,23 +88,26 @@ const Notes = ({ show, client }) => {
         /> */}
         <ScrollView style={{ backgroundColor: 'white' }}>
           <Card title='Stored notes'>
-          {notes.map((note, index) => {
-            return (
-              <ListItem
-                key={index}
-                title={note.title}
-                titleStyle={{ fontWeight: 'bold' }}
-                subtitle={note.content.substr(0, maxLength) + '...'}
-                bottomDivider
-                onPress={() => handleNotePress(note)}
-                onLongPress={() => handleNoteLongPress(note.id)}
-              />
-            )
-          })}
-
+            {notes.map((note, index) => {
+              return (
+                <ListItem
+                  key={index}
+                  title={note.title}
+                  titleStyle={{ fontWeight: 'bold' }}
+                  subtitle={note.content.substr(0, maxLength) + '...'}
+                  bottomDivider
+                  onPress={() => handleNotePress(note)}
+                  onLongPress={() => handleNoteLongPress(note.id)}
+                />
+              )
+            })}
           </Card>
         </ScrollView>
-        <Note note={selectedNote} overlayVisible={overlayVisible} setOverlayVisible={setOverlayVisible} />
+        <Note
+          note={selectedNote}
+          overlayVisible={overlayVisible}
+          setOverlayVisible={setOverlayVisible}
+        />
       </>
     )
   }

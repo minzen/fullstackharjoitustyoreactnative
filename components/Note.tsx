@@ -1,5 +1,11 @@
 import React, { useState } from 'react'
-import { StyleSheet, Modal, View, TouchableHighlight, ScrollView } from 'react-native'
+import {
+  StyleSheet,
+  Modal,
+  View,
+  TouchableHighlight,
+  ScrollView
+} from 'react-native'
 import { Card, Text, Overlay } from 'react-native-elements'
 
 const styles = StyleSheet.create({
@@ -22,8 +28,7 @@ const styles = StyleSheet.create({
   }
 })
 
-const Note = (props) => {
-
+const Note = props => {
   if (!props.note) {
     return null
   }
@@ -37,24 +42,20 @@ const Note = (props) => {
       width='90%'
       onBackdropPress={() => props.setOverlayVisible(!props.overlayVisible)}
     >
-        <Card title='Note' containerStyle={styles.container} titleStyle={styles.cardTitle}>
-          <ScrollView>
-            <Text style={styles.cardHeader}>
-              Title: 
-            </Text>
-            <Text style={styles.cardText}>
-              {props.note.title}
-            </Text>
-            <Text style={styles.cardHeader}>
-              Content: 
-            </Text>
-            <Text style={styles.cardText}>{props.note.content}</Text>
-            <Text style={styles.cardHeader}>
-              Keywords: 
-            </Text>
-            <Text style={styles.cardText}>{props.note.keywords}</Text>
-          </ScrollView>
-        </Card>
+      <Card
+        title='Note'
+        containerStyle={styles.container}
+        titleStyle={styles.cardTitle}
+      >
+        <ScrollView>
+          <Text style={styles.cardHeader}>Title:</Text>
+          <Text style={styles.cardText}>{props.note.title}</Text>
+          <Text style={styles.cardHeader}>Content:</Text>
+          <Text style={styles.cardText}>{props.note.content}</Text>
+          <Text style={styles.cardHeader}>Keywords:</Text>
+          <Text style={styles.cardText}>{props.note.keywords}</Text>
+        </ScrollView>
+      </Card>
     </Overlay>
   )
 }

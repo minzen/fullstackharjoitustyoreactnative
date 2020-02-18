@@ -7,7 +7,7 @@ import {
   StatusBar,
   Platform
 } from 'react-native'
-import { Button, ThemeProvider, Header, Text } from 'react-native-elements'
+import { Button, ThemeProvider, Text } from 'react-native-elements'
 import Notes from './components/Notes'
 import AddNote from './components/AddNote'
 import Login from './components/Login'
@@ -20,6 +20,7 @@ import { createHttpLink } from 'apollo-link-http'
 import { setContext } from 'apollo-link-context'
 import { AsyncStorage } from 'react-native'
 import Profile from './components/Profile'
+import Header from './components/Header'
 
 const styles = StyleSheet.create({
   container: {
@@ -69,6 +70,7 @@ const App = () => {
   if (!token) {
     return (
       <View style={styles.container}>
+        <Header />
         <View
           // TODO: Landscape modus does not work with the status bar at the moment
           //To set the background color in IOS Status Bar also
@@ -88,6 +90,7 @@ const App = () => {
 
   return (
     <View style={styles.container}>
+      <Header />
       <View
         // TODO: Landscape modus does not work with the status bar at the moment
         //To set the background color in IOS Status Bar also
@@ -111,10 +114,10 @@ const App = () => {
           title='Add Note'
           onPress={() => setPage('addnote')}
         />
-        <Button 
-          buttonStyle={{ borderColor: 'black', borderWidth: 0.5}}
+        <Button
+          buttonStyle={{ borderColor: 'black', borderWidth: 0.5 }}
           title='Profile'
-          onPress={() => setPage('profile') }
+          onPress={() => setPage('profile')}
         />
         <Button
           buttonStyle={{
@@ -131,7 +134,7 @@ const App = () => {
         />
         <Notes show={page === 'notes'} client={client} />
         <AddNote show={page === 'addnote'} client={client} />
-        <Profile show={page === 'profile'} client={client} token={token} />
+        <Profile show={page === 'profile'} token={token} />
         <Login
           show={page === 'login'}
           client={client}

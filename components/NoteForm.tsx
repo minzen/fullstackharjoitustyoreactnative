@@ -33,7 +33,7 @@ const NoteForm = props => {
   }
 
   return (
-      <Card title='Edit note'>
+    <Card title='Edit note'>
       <Input
         placeholder='Enter title...'
         // leftIcon={{ type: 'font-awesome', name: 'chevron-left' }}
@@ -57,8 +57,7 @@ const NoteForm = props => {
       />
 
       <Button title='Add note' onPress={handleAddNote} />
-
-      </Card>
+    </Card>
   )
 }
 export default NoteForm

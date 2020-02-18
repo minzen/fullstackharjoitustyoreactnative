@@ -22,28 +22,27 @@ const CURRENT_USER = gql`
 `
 
 const Profile = ({ show, token }) => {
-    if (!show || !token ) {
-        return null
-    }
-    const { loading, data, error } = useQuery(CURRENT_USER)
-    let user
+  if (!show || !token) {
+    return null
+  }
+  const { loading, data, error } = useQuery(CURRENT_USER)
+  let user
 
-    if (loading || error) {
-        return null
-    }
+  if (loading || error) {
+    return null
+  }
 
-    if (data && data.me) {
-        user = data.me
-    }
+  if (data && data.me) {
+    user = data.me
+  }
 
-
-    return (
-        <Card title='User profile'>
-            <Avatar rounded icon={{ name: 'face' }} />
-            <Text>Givenname: {user.givenname}</Text>
-            <Text>Surname: {user.surname}</Text>
-            <Text>Email: {user.email}</Text>
-        </Card>
-    )
+  return (
+    <Card title='User profile'>
+      <Avatar rounded icon={{ name: 'face' }} />
+      <Text>Givenname: {user.givenname}</Text>
+      <Text>Surname: {user.surname}</Text>
+      <Text>Email: {user.email}</Text>
+    </Card>
+  )
 }
 export default Profile
