@@ -1,31 +1,17 @@
 import 'react-native-gesture-handler'
-import React, { Component, useState } from 'react'
+import React, { useState } from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
-import {
-  StyleSheet,
-  KeyboardAvoidingView,
-  AppRegistry,
-  View,
-  StatusBar,
-  Platform
-} from 'react-native'
-import { Button, ThemeProvider, Text } from 'react-native-elements'
+import { StyleSheet, View, StatusBar, Platform } from 'react-native'
 import Login from './components/Login'
 import { ApolloProvider, Query } from 'react-apollo'
 import { ApolloClient } from 'apollo-client'
 import { InMemoryCache, NormalizedCacheObject } from 'apollo-boost'
 import { APOLLO_URI } from 'react-native-dotenv'
-import { colors, fonts, padding, dimensions } from './styles/base.js'
 import { createHttpLink } from 'apollo-link-http'
 import { setContext } from 'apollo-link-context'
 import { AsyncStorage } from 'react-native'
-import Profile from './components/Profile'
 import Header from './components/Header'
-import NoteForm from './components/NoteForm'
-import NotesPage from './screens/NotesPage'
-import EditNotePage from './screens/EditNotePage'
-import HomePage from './screens/HomePage'
 import TabNavigation from './components/TabNavigation'
 
 const Stack = createStackNavigator()
@@ -36,8 +22,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#dddddd'
   }
 })
-
-console.log(APOLLO_URI)
 
 const httpLink = createHttpLink({
   uri: APOLLO_URI
