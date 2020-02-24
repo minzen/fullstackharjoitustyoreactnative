@@ -1,9 +1,8 @@
 import React from 'react'
 import { View } from 'react-native'
-import { Button } from 'react-native-elements'
 import Header from '../components/Header'
 
-const HomePage = ({ navigation }) => {
+const HomePage = () => {
   return (
     <View>
       <Header />

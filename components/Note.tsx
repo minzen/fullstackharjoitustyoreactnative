@@ -8,6 +8,18 @@ import {
 } from 'react-native'
 import { Card, Text, Overlay } from 'react-native-elements'
 
+export interface NoteType {
+  title: string
+  content: string
+  keywords: Array<string>
+}
+
+type NoteProps = {
+  note: NoteType
+  overlayVisible: boolean
+  setOverlayVisible: any
+}
+
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#4682B4',
@@ -28,7 +40,7 @@ const styles = StyleSheet.create({
   }
 })
 
-const Note = props => {
+const Note = (props: NoteProps) => {
   if (!props.note) {
     return null
   }

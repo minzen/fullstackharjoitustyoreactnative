@@ -10,13 +10,18 @@ const MATERIAL_COMMUNITY_ICONS = 'MaterialCommunityIcons'
 const IONICONS = 'Ionicons'
 const ANTDESIGN = 'AntDesign'
 
-const TabNavigation = ({ client, setToken }) => {
+interface ITabNavProps {
+  client: any
+  setToken: any
+}
+
+const TabNavigation = ({ client, setToken }: ITabNavProps) => {
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused, color, size }) => {
-          let iconName
-          let type
+          let iconName: string | undefined = undefined
+          let type: string | undefined = undefined
 
           if (route.name === 'Home') {
             iconName = 'ios-home'
@@ -57,9 +62,7 @@ const TabNavigation = ({ client, setToken }) => {
       <Tab.Screen name='Notes'>
         {props => <NotesPage {...props} client={client} />}
       </Tab.Screen>
-      <Tab.Screen name='EditNote'>
-        {props => <EditNotePage {...props} client={client} />}
-      </Tab.Screen>
+      <Tab.Screen name='EditNote' component={EditNotePage} />
       <Tab.Screen name='Profile'>
         {props => (
           <ProfilePage {...props} client={client} setToken={setToken} />

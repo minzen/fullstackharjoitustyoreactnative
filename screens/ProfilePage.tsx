@@ -2,7 +2,7 @@ import React from 'react'
 import { View } from 'react-native'
 import { Text, Card, Avatar, Button } from 'react-native-elements'
 import { useQuery } from '@apollo/react-hooks'
-import { gql } from 'apollo-boost'
+import { gql, ApolloClient } from 'apollo-boost'
 
 const USER_DETAILS = gql`
   fragment UserDetails on User {
@@ -22,12 +22,32 @@ const CURRENT_USER = gql`
   ${USER_DETAILS}
 `
 
-const ProfilePage = ({ client, setToken }) => {
+type ProfilePageProps = {
+  client: any
+  setToken: any
+}
+
+const ProfilePage = (props: ProfilePageProps) => {
   const { loading, data, error } = useQuery(CURRENT_USER)
   let user
 
   if (loading || error) {
-    return null
+    return (
+      <>
+        <Button
+          buttonStyle={{
+            backgroundColor: 'red',
+            borderColor: 'black',
+            borderWidth: 0.5
+          }}
+          title='Logout'
+          onPress={() => {
+            props.client.resetStore()
+            props.setToken(null)
+          }}
+        />
+      </>
+    )
   }
 
   if (data && data.me) {
@@ -50,8 +70,8 @@ const ProfilePage = ({ client, setToken }) => {
         }}
         title='Logout'
         onPress={() => {
-          client.resetStore()
-          setToken(null)
+          props.client.resetStore()
+          props.setToken(null)
         }}
       />
     </View>

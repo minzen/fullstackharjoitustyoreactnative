@@ -3,7 +3,7 @@ import { gql } from 'apollo-boost'
 import { Mutation } from 'react-apollo'
 import NoteForm from '../components/NoteForm'
 
-const EditNotePage = ({ navigation, client }) => {
+const EditNotePage = () => {
   const ADD_NOTE = gql`
     mutation createNote(
       $title: String!
@@ -25,7 +25,7 @@ const EditNotePage = ({ navigation, client }) => {
 
   return (
     <Mutation mutation={ADD_NOTE}>
-      {createNote => <NoteForm addNote={createNote} />}
+      {(createNote: any) => <NoteForm addNote={createNote} />}
     </Mutation>
   )
 }

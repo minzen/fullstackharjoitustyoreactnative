@@ -4,9 +4,13 @@ import { Text, Input, Button } from 'react-native-elements'
 import { AsyncStorage } from 'react-native'
 import Icon from 'react-native-vector-icons/EvilIcons'
 
-const LoginForm = props => {
-  const [email, setEmail] = useState(null)
-  const [password, setPassword] = useState(null)
+type LoginFormProps = {
+  login: any
+}
+
+const LoginForm = (props: LoginFormProps) => {
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
 
   const handleLoginSubmit = async () => {
     let passwordObfuscated = ''

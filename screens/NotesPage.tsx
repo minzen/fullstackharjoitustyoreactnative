@@ -22,63 +22,57 @@ const ALL_NOTES = gql`
   }
 `
 
-const NotesPage = ({ navigation, client }) => {
-  const [searchTerm, setSearchTerm] = useState('')
+interface INoteType {
+  id: string
+  title: string
+  content: string
+}
+
+interface ISubscription {
+  data: any
+  loading: boolean
+}
+
+type NotesPageProps = {
+  navigation: any
+  client: any
+}
+
+const NotesPage = (props: NotesPageProps) => {
   const [notes, setNotes] = useState(null)
   const [selectedNote, setSelectedNote] = useState(null)
   const [overlayVisible, setOverlayVisible] = useState(false)
 
-  const maxLength: Number = 40
-
+  const maxLength: number = 40
+  let data: any
+  let loading: boolean
   console.log('Obtaining notes...')
-  const querySubscription: Subscription = client
+  const querySubscription: Subscription = props.client
     .watchQuery({
       query: ALL_NOTES,
       fetchPolicy: 'cache-and-network'
     })
-    .subscribe(({ data, loading }) => {
+    .subscribe(({ data, loading }: ISubscription) => {
       if (data && data.allNotes) setNotes(data.allNotes)
     })
 
-  const handleTextChange = search => {
-    console.log(`Setting ${search} to the search term`)
-    setSearchTerm(search)
-  }
-
-  const handleNewNote = () => {
-    console.log('Create a new note event')
-  }
-
-  const handleNotePress = note => {
+  const handleNotePress = (note: INoteType | undefined) => {
     console.log('Press on a list item', note.id)
     setSelectedNote(note)
     setOverlayVisible(true)
   }
 
-  const handleNoteLongPress = id => {
+  const handleNoteLongPress = (id: string) => {
     console.log('Long Press on a list item', id)
-  }
-
-  function extractKeywordsFromArrayWithJoin(keywords) {
-    console.log('keywords :', keywords)
-    if (!keywords) {
-      return ''
-    }
-    return keywords.join()
   }
 
   if (notes) {
     console.log('Notes to be printed out', notes)
     return (
       <>
-        {/* <SearchBar
-          placeholder='Search for notes...'
-          onChangeText={handleTextChange}
-          value={searchTerm}
-        /> */}
         <ScrollView style={{ backgroundColor: 'white' }}>
           <Card title='Stored notes'>
-            {notes.map((note, index) => {
+            {notes.map((note: INoteType, index: number) => {
               return (
                 <ListItem
                   key={index}
@@ -102,7 +96,7 @@ const NotesPage = ({ navigation, client }) => {
         <Button
           icon={<Icon name='plus' size={15} color='white' />}
           title=' Add a new note'
-          onPress={() => navigation.navigate('EditNote')}
+          onPress={() => props.navigation.navigate('EditNote')}
         />
       </>
     )

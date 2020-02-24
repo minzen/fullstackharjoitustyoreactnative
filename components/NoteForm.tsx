@@ -1,15 +1,19 @@
 // Form for editing/creating a new note
-import React, { useState } from 'react'
+import React, { useState, KeyboardEvent } from 'react'
 import { StyleSheet } from 'react-native'
 import { Text, Input, Button, Card, Avatar } from 'react-native-elements'
 import { dimensions, colors, padding, fonts } from '../styles/base.js'
 
-const NoteForm = props => {
+type NoteFormProps = {
+  addNote: any
+}
+
+const NoteForm = (props: NoteFormProps) => {
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
   const [keywords, setKeywords] = useState('')
 
-  const handleAddNote = async event => {
+  const handleAddNote = async () => {
     console.log(
       'handleAddNote title:',
       title,

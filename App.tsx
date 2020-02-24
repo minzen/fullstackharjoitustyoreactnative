@@ -1,20 +1,16 @@
 import 'react-native-gesture-handler'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { NavigationContainer } from '@react-navigation/native'
-import { createStackNavigator } from '@react-navigation/stack'
 import { StyleSheet, View, StatusBar, Platform } from 'react-native'
 import Login from './components/Login'
 import { ApolloProvider, Query } from 'react-apollo'
 import { ApolloClient } from 'apollo-client'
 import { InMemoryCache, NormalizedCacheObject } from 'apollo-boost'
-import { APOLLO_URI } from 'react-native-dotenv'
 import { createHttpLink } from 'apollo-link-http'
 import { setContext } from 'apollo-link-context'
 import { AsyncStorage } from 'react-native'
 import Header from './components/Header'
 import TabNavigation from './components/TabNavigation'
-
-const Stack = createStackNavigator()
 
 const styles = StyleSheet.create({
   container: {
@@ -23,8 +19,10 @@ const styles = StyleSheet.create({
   }
 })
 
+const APOLLOSERVER_URI = 'http://10.20.144.15:4000/graphql'
+
 const httpLink = createHttpLink({
-  uri: APOLLO_URI
+  uri: APOLLOSERVER_URI
 })
 
 const authLink = setContext(async (_, { headers }) => {
@@ -46,10 +44,13 @@ const client: ApolloClient<NormalizedCacheObject> = new ApolloClient({
 })
 
 const App = () => {
-  const [page, setPage] = useState('notes')
-  const [token, setToken] = useState(AsyncStorage.getItem('token'))
+  const [token, setToken] = useState('')
 
-  const onTokenChange = async value => {
+  useEffect(() => {
+    setToken(AsyncStorage.getItem('token').toString())
+  }, [])
+
+  const onTokenChange = async (value: string) => {
     console.log(
       'onTokenChange in App, storing token',
       value.toString(),
@@ -65,17 +66,14 @@ const App = () => {
         <View style={styles.container}>
           <Header />
           <View
-            // TODO: Landscape modus does not work with the status bar at the moment
-            //To set the background color in IOS Status Bar also
             style={{
-              //backgroundColor: '#00BCD4',
               height: Platform.OS === 'ios' ? 20 : StatusBar.currentHeight
             }}
           >
             <StatusBar hidden={false} barStyle='dark-content' />
           </View>
           <ApolloProvider client={client}>
-            <Login show={true} client={client} tokenChange={onTokenChange} />
+            <Login client={client} tokenChange={onTokenChange} />
           </ApolloProvider>
         </View>
       </NavigationContainer>
@@ -86,10 +84,7 @@ const App = () => {
     <NavigationContainer>
       <ApolloProvider client={client}>
         <View
-          // TODO: Landscape modus does not work with the status bar at the moment
-          //To set the background color in IOS Status Bar also
           style={{
-            //backgroundColor: '#00BCD4',
             height: Platform.OS === 'ios' ? 20 : StatusBar.currentHeight
           }}
         >
