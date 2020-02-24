@@ -38,6 +38,16 @@ The implementation relies on React, React Native, ApolloServer and ApolloClient 
 - React Native Elements
 - React Navigation
 
+## Screenshots
+
+![Main view](./assets/img/main.png)
+
+![Notes view](./assets/img/notes.png)
+
+![Single note view](./assets/img/note.png)
+
+![Profile view](./assets/img/profile.png)
+
 ## Time keeping
 
 [Time keeping for the project work](https://github.com/minzen/fullstack_harjoitustyo_backend/blob/master/tyokirjanpito.md)

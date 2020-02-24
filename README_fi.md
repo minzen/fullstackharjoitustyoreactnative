@@ -40,6 +40,16 @@ Toteutuksessa on käytetty apuna react-, react-native ja apolloserver ja -client
 Sovellusta voidaan ajaa esim. [Expo-sovelluksen](https://expo.io/tools) avulla. Komento
 `expo start` käynnistää suorituksen palvelimelle, johon voidaan muodostaa yhteys puhelimen applikaation avulla.
 
+## Kuvakaappauksia
+
+![Main view](./assets/img/main.png)
+
+![Notes view](./assets/img/notes.png)
+
+![Single note view](./assets/img/note.png)
+
+![Profile view](./assets/img/profile.png)
+
 ## Työaikakirjanpito
 
 [Työaikakirjanpito](https://github.com/minzen/fullstack_harjoitustyo_backend/blob/master/tyokirjanpito.md)
